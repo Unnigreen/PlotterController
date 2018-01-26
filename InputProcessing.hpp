@@ -16,9 +16,8 @@ class InputProcessing
 private:
 
 public:
-	InputProcessing();
-	~InputProcessing();
-	void Run();
+	static bool TaskInit();
+	static void TaskRun();
 };
 
 }

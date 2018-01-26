@@ -16,10 +16,8 @@ class UserNotification
 private:
 
 public:
-//	UserNotification();
-//	~UserNotification();
 	static bool TaskInit();
-	static void Run();
+	static void TaskRun();
 };
 
 }

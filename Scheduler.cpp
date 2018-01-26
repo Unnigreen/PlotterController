@@ -10,7 +10,6 @@
 ISR(TIMER1_COMPA_vect)          // timer compare interrupt service routine
 {
 	SchedulerNs::Scheduler::schedulerTriggerCount++;
-//	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
 namespace SchedulerNs
@@ -22,8 +21,20 @@ ULONG Scheduler::schedulerTriggerCount = 0;
 
 void Scheduler::Init()
 {
+	schedulerTimerInit();
+	noInterrupts();
+	for(int i = 0; i < MAX_TASKS; i++)
+	{
+		taskInfo[i].taskId = TASK_ID_INVALID;
+	}
+	schedulerTriggerCount = 0;
+	interrupts();
+}
+
+void Scheduler::schedulerTimerInit()
+{
 	// initialize timer1
-	noInterrupts();           // disable all interrupts
+	noInterrupts();
 	TCCR1A = 0;
 	TCCR1B = 0;
 	TCNT1  = 0;
@@ -33,51 +44,14 @@ void Scheduler::Init()
 	TCCR1B |= (1 << WGM12);   // CTC mode
 	TCCR1B |= (1 << CS12);    // 256 prescaler
 	TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
-
-	for(int i = 0; i < MAX_TASKS; i++)
-	{
-		taskInfo[i].taskId = TASK_ID_INVALID;
-	}
-	schedulerTriggerCount = 0;
 	interrupts();
-}
-
-Scheduler::Scheduler()
-{
-	if(isSchdulerUp == false)
-	{
-		isSchdulerUp = true;
-		// initialize timer1
-		noInterrupts();           // disable all interrupts
-		TCCR1A = 0;
-		TCCR1B = 0;
-		TCNT1  = 0;
-
-		//	OCR1A = 31250;            // compare match register 16MHz/256/2Hz
-		OCR1A = 312;
-		TCCR1B |= (1 << WGM12);   // CTC mode
-		TCCR1B |= (1 << CS12);    // 256 prescaler
-		TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
-
-		for(int i = 0; i < MAX_TASKS; i++)
-		{
-			taskInfo[i].taskId = TASK_ID_INVALID;
-		}
-		schedulerTriggerCount = 0;
-		interrupts();
-	}
-}
-
-Scheduler::~Scheduler()
-{
-
 }
 
 TID Scheduler::CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn)
 {
 	TID id = TASK_ID_INVALID;
 
-	noInterrupts();           // disable all interrupts
+	noInterrupts();
 	for(int i = 0; i < MAX_TASKS; i++)
 	{
 		if(taskInfo[i].taskId == TASK_ID_INVALID)
@@ -121,10 +95,6 @@ void Scheduler::Run()
 			}
 		}
 	}
-}
-
-TID CreateTask1(taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn)
-{
 }
 
 }

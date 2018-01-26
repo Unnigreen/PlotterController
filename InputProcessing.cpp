@@ -10,17 +10,12 @@
 namespace InputProcessingNs
 {
 
-InputProcessing::InputProcessing()
+bool InputProcessing::TaskInit()
 {
-
+	return true;
 }
 
-InputProcessing::~InputProcessing()
-{
-
-}
-
-void InputProcessing::Run()
+void InputProcessing::TaskRun()
 {
 
 }

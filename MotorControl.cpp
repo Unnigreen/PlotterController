@@ -5,6 +5,19 @@
  *      Author: unni
  */
 
+#include "MotorControl.hpp"
 
+namespace MotorControlLogic
+{
 
+bool MotorControl::TaskInit()
+{
+	return true;
+}
 
+void MotorControl::TaskRun()
+{
+
+}
+
+}

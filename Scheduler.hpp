@@ -39,16 +39,12 @@ private:
 public:
 	static ULONG schedulerTriggerCount;
 
-	Scheduler();
-	~Scheduler();
-
+	static void schedulerTimerInit();
 	static void Init();
 	static void Run(void);
 	static TID CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 	static void DecrementSchedulerTriggerCount();
 };
-
-TID CreateTask1(taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 
 }
 

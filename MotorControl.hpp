@@ -8,7 +8,7 @@
 #ifndef MOTORCONTROL_HPP_
 #define MOTORCONTROL_HPP_
 
-namespace MotorControlNs
+namespace MotorControlLogic
 {
 
 class MotorControl
@@ -17,11 +17,11 @@ private:
 
 public:
 
+	static bool TaskInit();
+	static void TaskRun();
 };
 
 }
-
-
 
 
 #endif /* MOTORCONTROL_HPP_ */
