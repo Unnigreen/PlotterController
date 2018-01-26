@@ -14,7 +14,9 @@
 void setup()
 {
 	TID taskId;
+
 	SchedulerNs::Scheduler::Init();
+
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_200MS, UserNotificationLogic::UserNotification::TaskInit, UserNotificationLogic::UserNotification::TaskRun);
 	UserNotificationLogic::UserNotification::SetTaskId(taskId);
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, MotorControlLogic::MotorControl::TaskInit, MotorControlLogic::MotorControl::TaskRun);
@@ -23,6 +25,7 @@ void setup()
 	InputConditioningLogic::InputConditioning::SetTaskId(taskId);
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, PlotterControllerApp::PlotterController::TaskInit, PlotterControllerApp::PlotterController::TaskRun);
 	PlotterControllerApp::PlotterController::SetTaskId(taskId);
+
 	SchedulerNs::Scheduler::Start();
 }
 
@@ -34,5 +37,3 @@ void loop()
 		SchedulerNs::Scheduler::DecrementSchedulerTriggerCount();
 	}
 }
-
-

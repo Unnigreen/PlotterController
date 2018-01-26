@@ -34,8 +34,9 @@ void Scheduler::Init()
 
 void Scheduler::schedulerTimerInit()
 {
-	// initialize timer1
 	noInterrupts();
+
+	// initialize timer1
 	TCCR1A = 0;
 	TCCR1B = 0;
 	TCNT1  = 0;
@@ -44,6 +45,8 @@ void Scheduler::schedulerTimerInit()
 	OCR1A = 312;
 	TCCR1B |= (1 << WGM12);   // CTC mode
 	TCCR1B |= (1 << CS12);    // 256 prescaler
+//	TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
+
 	interrupts();
 }
 

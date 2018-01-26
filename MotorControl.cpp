@@ -25,9 +25,9 @@ void MotorControl::TaskRun()
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
-void MotorControl::SetTaskId(TID task)
+void MotorControl::SetTaskId(TID id)
 {
-	taskId = task;
+	taskId = id;
 }
 
 TID MotorControl::GetTaskId()

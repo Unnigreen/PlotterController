@@ -25,9 +25,9 @@ void InputConditioning::TaskRun()
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
-void InputConditioning::SetTaskId(TID task)
+void InputConditioning::SetTaskId(TID id)
 {
-	taskId = task;
+	taskId = id;
 }
 
 TID InputConditioning::GetTaskId()

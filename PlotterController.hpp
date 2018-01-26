@@ -1,8 +1,9 @@
-// Only modify this file to include
-// - function definitions (prototypes)
-// - include files
-// - extern variable definitions
-// In the appropriate section
+/*
+ * PlotterController.cpp
+ *
+ *  Created on: Jan 25, 2018
+ *      Author: unni
+ */
 
 #ifndef _Plotter_Controller_H_
 #define _Plotter_Controller_H_

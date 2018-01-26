@@ -27,5 +27,4 @@ public:
 
 }
 
-
 #endif /* MOTORCONTROL_HPP_ */

@@ -1,4 +1,9 @@
-// Do not remove the include below
+/*
+ * PlotterController.cpp
+ *
+ *  Created on: Jan 25, 2018
+ *      Author: unni
+ */
 
 #include "Arduino.h"
 #include "common.hpp"
@@ -20,9 +25,9 @@ void PlotterController::TaskRun()
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
-void PlotterController::SetTaskId(TID task)
+void PlotterController::SetTaskId(TID id)
 {
-	taskId = task;
+	taskId = id;
 }
 
 TID PlotterController::GetTaskId()
