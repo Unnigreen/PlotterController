@@ -15,8 +15,6 @@ namespace SchedulerNs
 {
 
 #define MAX_TASKS			8
-#define TASK_ID_INVALID		0
-#define TASK_INIT_FAILED	-1
 
 typedef void (*taskRunFn_ptr)();
 typedef bool (*taskInitFn_ptr)();
@@ -25,6 +23,7 @@ typedef struct
 {
 	TID taskId;
 	USHORT taskPrio;
+	bool isTaskEnabled;
 	ULONG taskTicksToRun;
 	ULONG taskTickCount;
 	taskInitFn_ptr taskInitFn;
@@ -43,6 +42,8 @@ public:
 	static void Init();
 	static void Start();
 	static void Run(void);
+	static void DisableTask(TID);
+	static void EnableTask(TID);
 	static TID CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 	static void DecrementSchedulerTriggerCount();
 };

@@ -5,12 +5,14 @@
  *      Author: unni
  */
 
-#include "MotorControl.hpp"
-
 #include "Arduino.h"
+#include "common.hpp"
+#include "MotorControl.hpp"
 
 namespace MotorControlLogic
 {
+
+TID MotorControl::taskId = TASK_ID_INVALID;
 
 bool MotorControl::TaskInit()
 {
@@ -21,6 +23,16 @@ bool MotorControl::TaskInit()
 void MotorControl::TaskRun()
 {
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+}
+
+void MotorControl::SetTaskId(TID task)
+{
+	taskId = task;
+}
+
+TID MotorControl::GetTaskId()
+{
+	return taskId;
 }
 
 }

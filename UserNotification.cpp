@@ -5,11 +5,13 @@
  *      Author: unni
  */
 #include "Arduino.h"
+#include "common.hpp"
 #include "UserNotification.hpp"
-#include "Scheduler.hpp"
 
-namespace UserNotificationNs
+namespace UserNotificationLogic
 {
+
+TID UserNotification::taskId = TASK_ID_INVALID;
 
 bool UserNotification::TaskInit()
 {
@@ -20,6 +22,16 @@ bool UserNotification::TaskInit()
 void UserNotification::TaskRun()
 {
 	  digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+}
+
+void UserNotification::SetTaskId(TID task)
+{
+	taskId = task;
+}
+
+TID UserNotification::GetTaskId()
+{
+	return taskId;
 }
 
 }

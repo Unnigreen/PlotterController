@@ -26,6 +26,7 @@ void Scheduler::Init()
 	for(int i = 0; i < MAX_TASKS; i++)
 	{
 		taskInfo[i].taskId = TASK_ID_INVALID;
+		taskInfo[i].isTaskEnabled = false;
 	}
 	schedulerTriggerCount = 0;
 	interrupts();
@@ -62,6 +63,7 @@ TID Scheduler::CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr task
 		{
 			taskInfo[i].taskId = (i+1);
 			taskInfo[i].taskPrio = taskPrio;
+			taskInfo[i].isTaskEnabled = true;
 			taskInfo[i].taskTicksToRun = ticksToRun;
 			taskInfo[i].taskTickCount = 0;
 			taskInfo[i].taskInitFn = taskInitFn;
@@ -78,6 +80,16 @@ TID Scheduler::CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr task
 	return id;
 }
 
+void Scheduler::EnableTask(TID task)
+{
+	taskInfo[task].isTaskEnabled = true;
+}
+
+void Scheduler::DisableTask(TID task)
+{
+	taskInfo[task].isTaskEnabled = false;
+}
+
 void Scheduler::DecrementSchedulerTriggerCount()
 {
 	noInterrupts();
@@ -89,7 +101,7 @@ void Scheduler::Run()
 {
 	for(int i = 0; i < MAX_TASKS; i++)
 	{
-		if(taskInfo[i].taskId != TASK_ID_INVALID)
+		if( (taskInfo[i].taskId != TASK_ID_INVALID) && (taskInfo[i].isTaskEnabled == true) )
 		{
 			taskInfo[i].taskTickCount++;
 			if(taskInfo[i].taskTickCount >= taskInfo[i].taskTicksToRun)

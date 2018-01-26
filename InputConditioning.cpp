@@ -5,11 +5,14 @@
  *      Author: unni
  */
 
-#include "InputConditioning.hpp"
 #include "Arduino.h"
+#include "common.hpp"
+#include "InputConditioning.hpp"
 
 namespace InputConditioningLogic
 {
+
+TID InputConditioning::taskId = TASK_ID_INVALID;
 
 bool InputConditioning::TaskInit()
 {
@@ -20,6 +23,16 @@ bool InputConditioning::TaskInit()
 void InputConditioning::TaskRun()
 {
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+}
+
+void InputConditioning::SetTaskId(TID task)
+{
+	taskId = task;
+}
+
+TID InputConditioning::GetTaskId()
+{
+	return taskId;
 }
 
 }

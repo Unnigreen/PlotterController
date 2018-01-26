@@ -1,11 +1,13 @@
 // Do not remove the include below
 
+#include "Arduino.h"
+#include "common.hpp"
 #include "PlotterController.h"
-#include "Scheduler.hpp"
-#include "UserNotification.hpp"
 
 namespace PlotterControllerApp
 {
+
+TID PlotterController::taskId = TASK_ID_INVALID;
 
 bool PlotterController::TaskInit()
 {
@@ -16,6 +18,16 @@ bool PlotterController::TaskInit()
 void PlotterController::TaskRun()
 {
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+}
+
+void PlotterController::SetTaskId(TID task)
+{
+	taskId = task;
+}
+
+TID PlotterController::GetTaskId()
+{
+	return taskId;
 }
 
 }

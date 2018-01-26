@@ -8,16 +8,20 @@
 #ifndef INPUTCONDITIONING_HPP_
 #define INPUTCONDITIONING_HPP_
 
+#include "typedef.hpp"
+
 namespace InputConditioningLogic
 {
 
 class InputConditioning
 {
 private:
-
+	static TID taskId;
 public:
 	static bool TaskInit();
 	static void TaskRun();
+	static void SetTaskId(TID);
+	static TID GetTaskId();
 };
 
 }

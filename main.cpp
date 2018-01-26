@@ -13,11 +13,16 @@
 
 void setup()
 {
+	TID taskId;
 	SchedulerNs::Scheduler::Init();
-	SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_200MS, UserNotificationNs::UserNotification::TaskInit, UserNotificationNs::UserNotification::TaskRun);
-	SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, MotorControlLogic::MotorControl::TaskInit, MotorControlLogic::MotorControl::TaskRun);
-	SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, InputConditioningLogic::InputConditioning::TaskInit, InputConditioningLogic::InputConditioning::TaskRun);
-	SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, PlotterControllerApp::PlotterController::TaskInit, PlotterControllerApp::PlotterController::TaskRun);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_200MS, UserNotificationLogic::UserNotification::TaskInit, UserNotificationLogic::UserNotification::TaskRun);
+	UserNotificationLogic::UserNotification::SetTaskId(taskId);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, MotorControlLogic::MotorControl::TaskInit, MotorControlLogic::MotorControl::TaskRun);
+	MotorControlLogic::MotorControl::SetTaskId(taskId);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, InputConditioningLogic::InputConditioning::TaskInit, InputConditioningLogic::InputConditioning::TaskRun);
+	InputConditioningLogic::InputConditioning::SetTaskId(taskId);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, PlotterControllerApp::PlotterController::TaskInit, PlotterControllerApp::PlotterController::TaskRun);
+	PlotterControllerApp::PlotterController::SetTaskId(taskId);
 	SchedulerNs::Scheduler::Start();
 }
 

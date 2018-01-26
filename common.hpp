@@ -16,6 +16,9 @@
 #define TASK_TICK_500MS	(TASK_TICK_100MS * 5)
 #define TASK_TICK_1SECOND (TASK_TICK_10MS * 100)
 
+#define TASK_ID_INVALID		0
+#define TASK_INIT_FAILED	-1
+
 typedef enum
 {
 	TASK_CREATE_RESPONSE_INVALID = -1,
@@ -23,7 +26,5 @@ typedef enum
 	TASK_CREATE_RESPONSE_FAILURE,
 	TASK_CREATE_RESPONSE_MAX
 }eTaskCreateResponse;
-
-
 
 #endif /* COMMON_HPP_ */
