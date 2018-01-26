@@ -8,7 +8,7 @@
 #ifndef INPUTPROCESSING_HPP_
 #define INPUTPROCESSING_HPP_
 
-namespace InputProcessingNs
+namespace InputProcessingLogic
 {
 
 class InputProcessing

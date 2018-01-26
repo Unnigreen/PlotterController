@@ -43,8 +43,12 @@ void Scheduler::schedulerTimerInit()
 	OCR1A = 312;
 	TCCR1B |= (1 << WGM12);   // CTC mode
 	TCCR1B |= (1 << CS12);    // 256 prescaler
-	TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
 	interrupts();
+}
+
+void Scheduler::Start()
+{
+	TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
 }
 
 TID Scheduler::CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn)

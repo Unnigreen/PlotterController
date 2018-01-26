@@ -9,12 +9,13 @@ namespace PlotterControllerApp
 
 bool PlotterController::TaskInit()
 {
+	pinMode(LED_BUILTIN, OUTPUT);
 	return true;
 }
 
 void PlotterController::TaskRun()
 {
-
+	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
 }

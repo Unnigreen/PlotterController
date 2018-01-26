@@ -41,6 +41,7 @@ public:
 
 	static void schedulerTimerInit();
 	static void Init();
+	static void Start();
 	static void Run(void);
 	static TID CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 	static void DecrementSchedulerTriggerCount();

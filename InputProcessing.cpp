@@ -6,18 +6,20 @@
  */
 
 #include "InputProcessing.hpp"
+#include "Arduino.h"
 
-namespace InputProcessingNs
+namespace InputProcessingLogic
 {
 
 bool InputProcessing::TaskInit()
 {
+	pinMode(LED_BUILTIN, OUTPUT);
 	return true;
 }
 
 void InputProcessing::TaskRun()
 {
-
+	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
 }
