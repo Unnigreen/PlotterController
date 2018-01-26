@@ -11,25 +11,30 @@
 namespace UserNotificationNs
 {
 
-UserNotification::UserNotification()
-{
-	pinMode(LED_BUILTIN, OUTPUT);
-}
-
-UserNotification::~UserNotification()
-{
-
-}
+//UserNotification::UserNotification()
+//{
+//	pinMode(LED_BUILTIN, OUTPUT);
+//}
+//
+//UserNotification::~UserNotification()
+//{
+//
+//}
 void test()
 {
 
 }
-void UserNotification::TaskEntry()
+bool UserNotification::TaskInit()
 {
-	UserNotification notificationObj;
+	pinMode(LED_BUILTIN, OUTPUT);
+//	UserNotification notificationObj;
 //	notificationObj.Run();
-	SchedulerNs::Scheduler::CreateTask(1, 50, NULL, notificationObj.Run);
+//	SchedulerNs::Scheduler::CreateTask(1, 50, NULL, notificationObj.Run);
+
+//	SchedulerNs::CreateTask1( NULL, notificationObj.Run);
+
 //	SchedulerNs::Scheduler::CreateTask(1, 50, NULL, test);
+	return true;
 }
 
 void UserNotification::Run()

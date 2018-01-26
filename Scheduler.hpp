@@ -35,15 +35,20 @@ class Scheduler
 {
 private:
 	static taskControlBlock taskInfo[MAX_TASKS];
-
+	static bool isSchdulerUp;
 public:
 	static ULONG schedulerTriggerCount;
+
+	Scheduler();
+	~Scheduler();
 
 	static void Init();
 	static void Run(void);
 	static TID CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 	static void DecrementSchedulerTriggerCount();
 };
+
+TID CreateTask1(taskInitFn_ptr taskInitFn, taskRunFn_ptr taskRunFn);
 
 }
 

@@ -9,13 +9,14 @@ void taskFn()
 //	  digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
+//UserNotificationNs::UserNotification notificationObj;
 void setup()
 {
 //	pinMode(LED_BUILTIN, OUTPUT);
 	SchedulerNs::Scheduler::Init();
 //	SchedulerNs::Scheduler::CreateTask(1, 50, NULL, taskFn);
-	UserNotificationNs::UserNotification::TaskEntry();
-//	SchedulerNs::Scheduler::CreateTask(1, 50, UserNotificationNs::UserNotification::TaskEntry(), UserNotificationNs::UserNotification::);
+//	UserNotificationNs::UserNotification::TaskEntry();
+	SchedulerNs::Scheduler::CreateTask(1, 50, UserNotificationNs::UserNotification::TaskInit, UserNotificationNs::UserNotification::Run);
 }
 
 void loop()
