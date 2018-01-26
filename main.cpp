@@ -9,7 +9,7 @@
 #include "MotorControl.hpp"
 #include "UserNotification.hpp"
 #include "InputConditioning.hpp"
-#include "PlotterController.h"
+#include "PlotterController.hpp"
 
 void setup()
 {

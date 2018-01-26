@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 #include "common.hpp"
-#include "PlotterController.h"
+#include "PlotterController.hpp"
 
 namespace PlotterControllerApp
 {
