@@ -5,19 +5,19 @@
  *      Author: unni
  */
 
-#include "InputProcessing.hpp"
+#include "InputConditioning.hpp"
 #include "Arduino.h"
 
-namespace InputProcessingLogic
+namespace InputConditioningLogic
 {
 
-bool InputProcessing::TaskInit()
+bool InputConditioning::TaskInit()
 {
 	pinMode(LED_BUILTIN, OUTPUT);
 	return true;
 }
 
-void InputProcessing::TaskRun()
+void InputConditioning::TaskRun()
 {
 	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }

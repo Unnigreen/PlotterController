@@ -5,13 +5,13 @@
  *      Author: unni
  */
 
-#ifndef INPUTPROCESSING_HPP_
-#define INPUTPROCESSING_HPP_
+#ifndef INPUTCONDITIONING_HPP_
+#define INPUTCONDITIONING_HPP_
 
-namespace InputProcessingLogic
+namespace InputConditioningLogic
 {
 
-class InputProcessing
+class InputConditioning
 {
 private:
 
