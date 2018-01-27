@@ -26,6 +26,8 @@ namespace UserNotificationLogic
 
 #define STATUS_LED_PIN 			LED_BUILTIN
 #define BUZZER_PIN 				PIN_A0
+//#define BUZZER_PIN 				LED_BUILTIN
+
 #define MAX_LED_BUZZER_ON_OFF	6
 #define LED_REPEAT_ON			true
 #define LED_REPEAT_OFF			false

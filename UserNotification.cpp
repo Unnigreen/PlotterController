@@ -257,19 +257,17 @@ void UserNotification::StartStatusLedOperation()
 	if(NotificationStateInfo.StatusLedDurationRequired != LED_BUZZER_DURATION_INVALID){
 		digitalWrite(STATUS_LED_PIN, NotificationStateInfo.isStatusLedOn);
 		NotificationStateInfo.isStatusLedTaskRunning = true;
-		Serial.write(0x33);
 	}
 	else{
 		NotificationStateInfo.isStatusLedTaskRunning = false;
-		Serial.write(0x34);
 	}
 }
 
 void UserNotification::StartBuzzerOperation()
 {
 	NotificationStateInfo.BuzzerOnOffTableIndex = 0;
-	NotificationStateInfo.isBuzzerOn = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].IsOn;
-	NotificationStateInfo.BuzzerDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration;
+	NotificationStateInfo.isBuzzerOn = NotificationTable[NotificationStateInfo.curNotificationState]->BuzzerOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].IsOn;
+	NotificationStateInfo.BuzzerDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->BuzzerOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration;
 	NotificationStateInfo.BuzzerDurationCounter = 0;
 	if(NotificationStateInfo.BuzzerDurationRequired != LED_BUZZER_DURATION_INVALID){
 		digitalWrite(BUZZER_PIN, NotificationStateInfo.isBuzzerOn);
@@ -314,18 +312,18 @@ void UserNotification::BuzzerOperation()
 		if(NotificationStateInfo.BuzzerDurationCounter > NotificationStateInfo.BuzzerDurationRequired)
 		{
 			NotificationStateInfo.BuzzerOnOffTableIndex++;
-			if( (NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration == LED_BUZZER_DURATION_INVALID)
+			if( (NotificationTable[NotificationStateInfo.curNotificationState]->BuzzerOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration == LED_BUZZER_DURATION_INVALID)
 					|| (NotificationStateInfo.BuzzerOnOffTableIndex >= MAX_LED_BUZZER_ON_OFF))
 			{
 				NotificationStateInfo.BuzzerOnOffTableIndex = 0;
-				if(NotificationTable[NotificationStateInfo.curNotificationState]->isStatusLedRepeatOn == false)
+				if(NotificationTable[NotificationStateInfo.curNotificationState]->isBuzzerRepeatOn == false)
 				{
 					NotificationStateInfo.isBuzzerTaskRunning = false;
 					return;
 				}
 			}
-			NotificationStateInfo.isBuzzerOn = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].IsOn;
-			NotificationStateInfo.BuzzerDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration;
+			NotificationStateInfo.isBuzzerOn = NotificationTable[NotificationStateInfo.curNotificationState]->BuzzerOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].IsOn;
+			NotificationStateInfo.BuzzerDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->BuzzerOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration;
 			NotificationStateInfo.BuzzerDurationCounter = 0;
 			digitalWrite(BUZZER_PIN, NotificationStateInfo.isBuzzerOn);
 		}
