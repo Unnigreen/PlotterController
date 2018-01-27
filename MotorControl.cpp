@@ -16,13 +16,13 @@ TID MotorControl::taskId = TASK_ID_INVALID;
 
 bool MotorControl::TaskInit()
 {
-	pinMode(LED_BUILTIN, OUTPUT);
+//	pinMode(LED_BUILTIN, OUTPUT);
 	return true;
 }
 
 void MotorControl::TaskRun()
 {
-	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+//	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
 void MotorControl::SetTaskId(TID id)

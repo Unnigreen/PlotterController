@@ -17,12 +17,12 @@ RunningNotificationInfo UserNotification::NotificationStateInfo;
 bool UserNotification::isMsgReceived;
 
 NotificationTableInfo NotificationTableEntry_Init = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
+				{ true,  LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_50MS, },
+				{ true, LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_1000MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 		},
@@ -37,10 +37,10 @@ NotificationTableInfo NotificationTableEntry_Init = {
 };
 
 NotificationTableInfo NotificationTableEntry_Ready = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true,  LED_BUZZER_DURATION_3000MS, },
+				{ false, LED_BUZZER_DURATION_3000MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -57,9 +57,9 @@ NotificationTableInfo NotificationTableEntry_Ready = {
 };
 
 NotificationTableInfo NotificationTableEntry_OnJob = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
+				{ true,  LED_BUZZER_DURATION_500MS, },
 				{ false, LED_BUZZER_DURATION_500MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -79,8 +79,8 @@ NotificationTableInfo NotificationTableEntry_OnJob = {
 NotificationTableInfo NotificationTableEntry_JobCompleted = {
 		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true,  LED_BUZZER_DURATION_50MS, },
+				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -97,14 +97,14 @@ NotificationTableInfo NotificationTableEntry_JobCompleted = {
 };
 
 NotificationTableInfo NotificationTableEntry_InitError = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
+				{ true,  LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_50MS, },
+				{ true, LED_BUZZER_DURATION_100MS, },
 				{ false, LED_BUZZER_DURATION_500MS, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
+				{ true, LED_BUZZER_DURATION_500MS, },
+				{ false, LED_BUZZER_DURATION_2000MS, },
 		},
 		{
 				{ true,  LED_BUZZER_DURATION_750MS, },
@@ -117,10 +117,10 @@ NotificationTableInfo NotificationTableEntry_InitError = {
 };
 
 NotificationTableInfo NotificationTableEntry_ComError = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true,  LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_1000MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -137,14 +137,14 @@ NotificationTableInfo NotificationTableEntry_ComError = {
 };
 
 NotificationTableInfo NotificationTableEntry_JobError = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
+				{ true,  LED_BUZZER_DURATION_500MS, },
 				{ false, LED_BUZZER_DURATION_500MS, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
-				{ false, LED_BUZZER_DURATION_INVALID, },
+				{ true, LED_BUZZER_DURATION_500MS, },
+				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true, LED_BUZZER_DURATION_1500MS, },
+				{ false, LED_BUZZER_DURATION_2000MS, },
 		},
 		{
 				{ true,  LED_BUZZER_DURATION_750MS, },
@@ -157,10 +157,10 @@ NotificationTableInfo NotificationTableEntry_JobError = {
 };
 
 NotificationTableInfo NotificationTableEntry_OverRunError = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_750MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true,  LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_100MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -177,10 +177,10 @@ NotificationTableInfo NotificationTableEntry_OverRunError = {
 };
 
 NotificationTableInfo NotificationTableEntry_OtherError = {
-		LED_REPEAT_OFF, BUZZER_REPEAT_OFF,
+		LED_REPEAT_ON, BUZZER_REPEAT_OFF,
 		{
-				{ true,  LED_BUZZER_DURATION_250MS, },
-				{ false, LED_BUZZER_DURATION_500MS, },
+				{ true,  LED_BUZZER_DURATION_100MS, },
+				{ false, LED_BUZZER_DURATION_3000MS, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
 				{ false, LED_BUZZER_DURATION_INVALID, },
@@ -227,6 +227,7 @@ void UserNotification::TaskRun()
 		  StartStatusLedOperation();
 		  StartBuzzerOperation();
 		  isMsgReceived = false;
+		  Serial.write(NotificationStateInfo.curNotificationState + 0x30);
 	  }
 
 	  StatusLedOperation();
@@ -249,20 +250,24 @@ TID UserNotification::GetTaskId()
 
 void UserNotification::StartStatusLedOperation()
 {
+	NotificationStateInfo.StatusLedOnOffTableIndex = 0;
 	NotificationStateInfo.isStatusLedOn = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.StatusLedOnOffTableIndex].IsOn;
 	NotificationStateInfo.StatusLedDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.StatusLedOnOffTableIndex].Duration;
 	NotificationStateInfo.StatusLedDurationCounter = 0;
 	if(NotificationStateInfo.StatusLedDurationRequired != LED_BUZZER_DURATION_INVALID){
 		digitalWrite(STATUS_LED_PIN, NotificationStateInfo.isStatusLedOn);
 		NotificationStateInfo.isStatusLedTaskRunning = true;
+		Serial.write(0x33);
 	}
 	else{
 		NotificationStateInfo.isStatusLedTaskRunning = false;
+		Serial.write(0x34);
 	}
 }
 
 void UserNotification::StartBuzzerOperation()
 {
+	NotificationStateInfo.BuzzerOnOffTableIndex = 0;
 	NotificationStateInfo.isBuzzerOn = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].IsOn;
 	NotificationStateInfo.BuzzerDurationRequired = NotificationTable[NotificationStateInfo.curNotificationState]->StatusLedOnOffTable[NotificationStateInfo.BuzzerOnOffTableIndex].Duration;
 	NotificationStateInfo.BuzzerDurationCounter = 0;

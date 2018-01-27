@@ -17,16 +17,18 @@ void setup()
 
 	SchedulerNs::Scheduler::Init();
 
-	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_200MS, UserNotificationLogic::UserNotification::TaskInit, UserNotificationLogic::UserNotification::TaskRun);
-	UserNotificationLogic::UserNotification::SetTaskId(taskId);
-	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, MotorControlLogic::MotorControl::TaskInit, MotorControlLogic::MotorControl::TaskRun);
-	MotorControlLogic::MotorControl::SetTaskId(taskId);
-	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, InputConditioningLogic::InputConditioning::TaskInit, InputConditioningLogic::InputConditioning::TaskRun);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_INPUT_CONDITIONING_TICK,InputConditioningLogic::InputConditioning::TaskInit,InputConditioningLogic::InputConditioning::TaskRun);
 	InputConditioningLogic::InputConditioning::SetTaskId(taskId);
-	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_TICK_500MS, PlotterControllerApp::PlotterController::TaskInit, PlotterControllerApp::PlotterController::TaskRun);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_MOTOR_CONTROL_TICK, 	MotorControlLogic::MotorControl::TaskInit, 			MotorControlLogic::MotorControl::TaskRun);
+	MotorControlLogic::MotorControl::SetTaskId(taskId);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_USER_NOTIFICATION_TICK, UserNotificationLogic::UserNotification::TaskInit, 	UserNotificationLogic::UserNotification::TaskRun);
+	UserNotificationLogic::UserNotification::SetTaskId(taskId);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_PLOTTER_CONTROLLER_TICK * 200,PlotterControllerApp::PlotterController::TaskInit, 	PlotterControllerApp::PlotterController::TaskRun);
 	PlotterControllerApp::PlotterController::SetTaskId(taskId);
 
 	SchedulerNs::Scheduler::Start();
+
+	Serial.begin(115200);
 }
 
 void loop()
@@ -36,4 +38,5 @@ void loop()
 		SchedulerNs::Scheduler::Run();
 		SchedulerNs::Scheduler::DecrementSchedulerTriggerCount();
 	}
+
 }

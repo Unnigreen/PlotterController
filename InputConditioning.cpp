@@ -16,13 +16,13 @@ TID InputConditioning::taskId = TASK_ID_INVALID;
 
 bool InputConditioning::TaskInit()
 {
-	pinMode(LED_BUILTIN, OUTPUT);
+//	pinMode(LED_BUILTIN, OUTPUT);
 	return true;
 }
 
 void InputConditioning::TaskRun()
 {
-	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+//	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
 }
 
 void InputConditioning::SetTaskId(TID id)
