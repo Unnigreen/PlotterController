@@ -9,11 +9,15 @@
 #include "common.hpp"
 #include "PlotterController.hpp"
 #include "UserNotification.hpp"
+#include "Scheduler.hpp"
 
 namespace PlotterControllerApp
 {
 
 TID PlotterController::taskId = TASK_ID_INVALID;
+bool PlotterController::isMsgReceived = false;
+bool PlotterController::ForwardHomeState = false;
+bool PlotterController::BackwardHomeState = false;
 
 bool PlotterController::TaskInit()
 {
@@ -23,41 +27,11 @@ bool PlotterController::TaskInit()
 
 void PlotterController::TaskRun()
 {
-	static UserNotificationLogic::NotificationState nState = UserNotificationLogic::NOTIFICATION_STATE_INITIALIZING;
-//	static UserNotificationLogic::NotificationState nState = UserNotificationLogic::NOTIFICATION_STATE_COMMUNICATION_ERROR;
-	UserNotificationLogic::UserNotification::SendMessage(nState);
-	switch(nState)
-	{
-	case UserNotificationLogic::NOTIFICATION_STATE_INITIALIZING:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_READY;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_READY:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_ON_JOB;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_ON_JOB:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_JOB_COMPLETED;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_JOB_COMPLETED:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_INITIALIZATION_ERROR;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_INITIALIZATION_ERROR:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_COMMUNICATION_ERROR;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_COMMUNICATION_ERROR:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_JOB_ERROR;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_JOB_ERROR:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_OVER_RUN_ERROR;
-		break;
-	case UserNotificationLogic::NOTIFICATION_STATE_OVER_RUN_ERROR:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_OTHER_ERROR;
-		break;
-	default:
-		nState = UserNotificationLogic::NOTIFICATION_STATE_INITIALIZING;
-		break;
-	}
-//	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
-//		Serial.write("Hello");
+	isMsgReceived = false;
+
+	Serial.write(ForwardHomeState + 0x30);
+	Serial.write(BackwardHomeState + 0x30);
+	SchedulerNs::Scheduler::DisableTask(taskId);
 }
 
 void PlotterController::SetTaskId(TID id)
@@ -68,6 +42,20 @@ void PlotterController::SetTaskId(TID id)
 TID PlotterController::GetTaskId()
 {
 	return taskId;
+}
+
+void PlotterController::ForwardHomeCallBack(bool state)
+{
+	isMsgReceived = true;
+	ForwardHomeState = state;
+	SchedulerNs::Scheduler::EnableTask(taskId);
+}
+
+void PlotterController::BackwardHomeCallBack(bool state)
+{
+	isMsgReceived = true;
+	BackwardHomeState = state;
+	SchedulerNs::Scheduler::EnableTask(taskId);
 }
 
 }

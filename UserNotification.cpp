@@ -333,8 +333,8 @@ void UserNotification::BuzzerOperation()
 void UserNotification::SendMessage(NotificationState state)
 {
 	NotificationStateInfo.nxtNotificationState = state;
-	SchedulerNs::Scheduler::EnableTask(taskId);
 	isMsgReceived = true;
+	SchedulerNs::Scheduler::EnableTask(taskId);
 }
 
 }

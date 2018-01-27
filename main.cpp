@@ -15,6 +15,7 @@ void setup()
 {
 	TID taskId;
 
+	Serial.begin(115200);
 	SchedulerNs::Scheduler::Init();
 
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_INPUT_CONDITIONING_TICK,InputConditioningLogic::InputConditioning::TaskInit,InputConditioningLogic::InputConditioning::TaskRun);
@@ -27,8 +28,6 @@ void setup()
 	PlotterControllerApp::PlotterController::SetTaskId(taskId);
 
 	SchedulerNs::Scheduler::Start();
-
-	Serial.begin(115200);
 }
 
 void loop()
