@@ -85,8 +85,10 @@ TID Scheduler::CreateTask(USHORT taskPrio, ULONG ticksToRun, taskInitFn_ptr task
 
 void Scheduler::EnableTask(TID task)
 {
-	taskInfo[task].isTaskEnabled = true;
-	taskInfo[task].taskTickCount = taskInfo[task].taskTicksToRun;
+	if(taskInfo[task].isTaskEnabled == false){
+		taskInfo[task].isTaskEnabled = true;
+		taskInfo[task].taskTickCount = taskInfo[task].taskTicksToRun;
+	}
 }
 
 void Scheduler::DisableTask(TID task)
