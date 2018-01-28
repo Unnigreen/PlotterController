@@ -13,18 +13,28 @@
 namespace MotorControlLogic
 {
 
-#define STEPPER_BASE_MOTOR_PIN		(9)
-#define STEPPER_CROSS_MOTOR_PIN		(10)
-#define DC_DRILL_MOTOR_PIN			(11)
+#define DC_DRILL_MOTOR_PIN			(3)
+#define STEPPER_BASE_MOTOR_PIN		(5)
+#define STEPPER_CROSS_MOTOR_PIN		(6)
 
 typedef enum
 {
 	MOTOR_TYPE_INVALID = -1,
-	STEPPER_BASE_MOTOR,
-	STEPPER_CROSS_MOTOR,
-	DC_DRILL_MOTOR,
+	MOTOR_TYPE_STEPPER_BASE,
+	MOTOR_TYPE_STEPPER_CROSS,
+	MOTOR_TYPE_DC_DRILL,
 	MOTOR_TYPE_MAX
 }MotorType;
+
+typedef enum
+{
+	MOTOR_MOVE_TYPE_INVALID = -1,
+	MOTOR_MOVE_TYPE_TO_FORWARDHOME,
+	MOTOR_MOVE_TYPE_TO_BACKWARDHOME,
+	MOTOR_MOVE_TYPE_CLOCKWISE,
+	MOTOR_MOVE_TYPE_ANTICLOCKWISE,
+	MOTOR_MOVE_TYPE_MAX
+}MotorMoveType;
 
 typedef struct
 {
@@ -46,10 +56,10 @@ protected:
 public:
 	BaseMotor();
 	virtual ~BaseMotor();
-	virtual bool SetMotorConfig(MotorConfig*) = 0;
-	virtual bool GetMotorConfig(MotorConfig*) = 0;
+	bool SetMotorConfig(MotorConfig*);
+	bool GetMotorConfig(MotorConfig*);
 	virtual void StopMotor() = 0;
-	virtual void MoveMotorContinuously() = 0;
+	virtual void MoveMotorContinuously(MotorMoveType) = 0;
 };
 
 class StepperMotor : public BaseMotor
@@ -60,10 +70,10 @@ private:
 public:
 	StepperMotor(MotorType);
 	virtual ~StepperMotor();
-	virtual bool SetMotorConfig(MotorConfig*);
-	virtual bool GetMotorConfig(MotorConfig*);
+//	virtual bool SetMotorConfig(MotorConfig*);
+//	virtual bool GetMotorConfig(MotorConfig*);
 	virtual void StopMotor();
-	virtual void MoveMotorContinuously();
+	virtual void MoveMotorContinuously(MotorMoveType);
 	void MoveMotorBySteps(ULONG);
 	void MoveMotortoStep(ULONG step);
 	void MoveMotorByDistance(ULONG);
@@ -77,10 +87,10 @@ private:
 public:
 	DcMotor(MotorType);
 	virtual ~DcMotor();
-	virtual bool SetMotorConfig(MotorConfig*);
-	virtual bool GetMotorConfig(MotorConfig*);
+//	virtual bool SetMotorConfig(MotorConfig*);
+//	virtual bool GetMotorConfig(MotorConfig*);
 	virtual void StopMotor();
-	virtual void MoveMotorContinuously();
+	virtual void MoveMotorContinuously(MotorMoveType);
 };
 
 class MotorControl

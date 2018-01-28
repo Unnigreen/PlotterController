@@ -35,21 +35,19 @@ StepperMotor::StepperMotor(MotorType type)
 {
 	switch(type)
 	{
-	case STEPPER_BASE_MOTOR:
+	case MOTOR_TYPE_STEPPER_BASE:
 		config.accStepSize = 1;
-		config.stepSize = 10;
+		config.stepSize = 200;
 		config.homeToHomeSteps = 0;
 		config.curStep = 0;
 		config.pwmPin = STEPPER_BASE_MOTOR_PIN;
-		pinMode(config.pwmPin, OUTPUT);
 		break;
-	case STEPPER_CROSS_MOTOR:
+	case MOTOR_TYPE_STEPPER_CROSS:
 		config.accStepSize = 1;
-		config.stepSize = 10;
+		config.stepSize = 200;
 		config.homeToHomeSteps = 0;
 		config.curStep = 0;
 		config.pwmPin = STEPPER_CROSS_MOTOR_PIN;
-		pinMode(config.pwmPin, OUTPUT);
 		break;
 	default:
 		break;
@@ -65,13 +63,12 @@ DcMotor::DcMotor(MotorType type)
 {
 	switch(type)
 	{
-	case DC_DRILL_MOTOR:
-		config.accStepSize = 1;
-		config.stepSize = 10;
+	case MOTOR_TYPE_DC_DRILL:
+		config.accStepSize = 0;
+		config.stepSize = 200;
 		config.homeToHomeSteps = 0;
 		config.curStep = 0;
 		config.pwmPin = DC_DRILL_MOTOR_PIN;
-		pinMode(config.pwmPin, OUTPUT);
 		break;
 	default:
 		break;
@@ -86,10 +83,9 @@ DcMotor::~DcMotor()
 bool MotorControl::TaskInit()
 {
 //	pinMode(LED_BUILTIN, OUTPUT);
-
-	BaseMotor = new StepperMotor(STEPPER_BASE_MOTOR);
-	CrossMotor = new StepperMotor(STEPPER_CROSS_MOTOR);
-	DrillMotor = new DcMotor(DC_DRILL_MOTOR);
+	BaseMotor = new StepperMotor(MOTOR_TYPE_STEPPER_BASE);
+	CrossMotor = new StepperMotor(MOTOR_TYPE_STEPPER_CROSS);
+	DrillMotor = new DcMotor(MOTOR_TYPE_DC_DRILL);
 
 	return true;
 }
@@ -97,6 +93,14 @@ bool MotorControl::TaskInit()
 void MotorControl::TaskRun()
 {
 //	digitalWrite(LED_BUILTIN, digitalRead(LED_BUILTIN) ^ 1);
+
+//	static ULONG step = 0;
+	BaseMotor->MoveMotorContinuously(MOTOR_MOVE_TYPE_INVALID);
+	CrossMotor->MoveMotorContinuously(MOTOR_MOVE_TYPE_INVALID);
+	DrillMotor->MoveMotorContinuously(MOTOR_MOVE_TYPE_INVALID);
+
+//	analogWrite(5, step);
+//	step += 20;
 }
 
 void MotorControl::SetTaskId(TID id)
@@ -107,18 +111,6 @@ void MotorControl::SetTaskId(TID id)
 TID MotorControl::GetTaskId()
 {
 	return taskId;
-}
-
-bool StepperMotor::SetMotorConfig(MotorConfig* setting)
-{
-	memcpy((void*)&config, (void*)setting, sizeof(MotorConfig));
-	return true;
-}
-
-bool StepperMotor::GetMotorConfig(MotorConfig* setting)
-{
-	memcpy((void*)setting, (void*)&config, sizeof(MotorConfig));
-	return true;
 }
 
 void StepperMotor::MoveMotorBySteps(ULONG step)
@@ -136,9 +128,9 @@ void StepperMotor::MoveMotorByDistance(ULONG dist)
 
 }
 
-void StepperMotor::MoveMotorContinuously()
+void StepperMotor::MoveMotorContinuously(MotorMoveType type)
 {
-
+	analogWrite(config.pwmPin, (config.stepSize % 255));
 }
 
 void StepperMotor::StopMotor()
@@ -146,26 +138,26 @@ void StepperMotor::StopMotor()
 
 }
 
-bool DcMotor::SetMotorConfig(MotorConfig* setting)
+bool BaseMotor::SetMotorConfig(MotorConfig* setting)
 {
 	memcpy((void*)&config, (void*)setting, sizeof(MotorConfig));
 	return true;
 }
 
-bool DcMotor::GetMotorConfig(MotorConfig* setting)
+bool BaseMotor::GetMotorConfig(MotorConfig* setting)
 {
 	memcpy((void*)setting, (void*)&config, sizeof(MotorConfig));
 	return true;
 }
 
-void DcMotor::MoveMotorContinuously()
+void DcMotor::MoveMotorContinuously(MotorMoveType type)
 {
-
+	analogWrite(config.pwmPin, (config.stepSize % 255));
 }
 
 void DcMotor::StopMotor()
 {
-
+	analogWrite(config.pwmPin, 0);
 }
 
 }

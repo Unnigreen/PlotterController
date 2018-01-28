@@ -20,7 +20,7 @@ void setup()
 
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_INPUT_CONDITIONING_TICK,InputConditioningLogic::InputConditioning::TaskInit,InputConditioningLogic::InputConditioning::TaskRun);
 	InputConditioningLogic::InputConditioning::SetTaskId(taskId);
-	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_MOTOR_CONTROL_TICK, 	MotorControlLogic::MotorControl::TaskInit, 			MotorControlLogic::MotorControl::TaskRun);
+	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_MOTOR_CONTROL_TICK * 100, 	MotorControlLogic::MotorControl::TaskInit, 			MotorControlLogic::MotorControl::TaskRun);
 	MotorControlLogic::MotorControl::SetTaskId(taskId);
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_USER_NOTIFICATION_TICK, UserNotificationLogic::UserNotification::TaskInit, 	UserNotificationLogic::UserNotification::TaskRun);
 	UserNotificationLogic::UserNotification::SetTaskId(taskId);
@@ -37,5 +37,4 @@ void loop()
 		SchedulerNs::Scheduler::Run();
 		SchedulerNs::Scheduler::DecrementSchedulerTriggerCount();
 	}
-
 }
