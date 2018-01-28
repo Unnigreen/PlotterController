@@ -41,8 +41,11 @@ typedef struct
 	USHORT pwmPin;
 	USHORT accStepSize;
 	USHORT stepSize;
+	USHORT stepsPerMm;
 	ULONG homeToHomeSteps;
 	ULONG curStep;
+	ULONG stepsToMove;
+	MotorMoveType dirToMove;
 
 }MotorConfig;
 
@@ -74,9 +77,9 @@ public:
 //	virtual bool GetMotorConfig(MotorConfig*);
 	virtual void StopMotor();
 	virtual void MoveMotorContinuously(MotorMoveType);
-	void MoveMotorBySteps(ULONG);
+	void MoveMotorBySteps(SLONG);
 	void MoveMotortoStep(ULONG step);
-	void MoveMotorByDistance(ULONG);
+	void MoveMotorByDistance(SLONG);
 };
 
 class DcMotor : public BaseMotor

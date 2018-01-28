@@ -113,24 +113,81 @@ TID MotorControl::GetTaskId()
 	return taskId;
 }
 
-void StepperMotor::MoveMotorBySteps(ULONG step)
+void StepperMotor::MoveMotorBySteps(SLONG steps)
 {
+	MotorMoveType type;
 
+	steps >= 0 ? (type = MOTOR_MOVE_TYPE_TO_FORWARDHOME) : (type = MOTOR_MOVE_TYPE_TO_BACKWARDHOME);
+	switch(type)
+	{
+	case MOTOR_MOVE_TYPE_TO_FORWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_FORWARDHOME;
+		config.stepsToMove = steps;
+		break;
+	case MOTOR_MOVE_TYPE_TO_BACKWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_BACKWARDHOME;
+		config.stepsToMove = steps * -1;
+		break;
+	default:
+		break;
+	}
 }
 
 void StepperMotor::MoveMotortoStep(ULONG step)
 {
+	MotorMoveType type;
 
+	config.curStep <= step ? (type = MOTOR_MOVE_TYPE_TO_FORWARDHOME) : (type = MOTOR_MOVE_TYPE_TO_BACKWARDHOME);
+	switch(type)
+	{
+	case MOTOR_MOVE_TYPE_TO_FORWARDHOME:
+		config.stepsToMove = step - config.curStep;
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_FORWARDHOME;
+		break;
+	case MOTOR_MOVE_TYPE_TO_BACKWARDHOME:
+		config.stepsToMove = config.curStep - step;
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_BACKWARDHOME;
+		break;
+	default:
+		break;
+	}
 }
 
-void StepperMotor::MoveMotorByDistance(ULONG dist)
+void StepperMotor::MoveMotorByDistance(SLONG dist)
 {
+	MotorMoveType type;
 
+	dist >= 0 ? (type = MOTOR_MOVE_TYPE_TO_FORWARDHOME) : (type = MOTOR_MOVE_TYPE_TO_BACKWARDHOME);
+	switch(type)
+	{
+	case MOTOR_MOVE_TYPE_TO_FORWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_FORWARDHOME;
+		config.stepsToMove = dist * config.stepsPerMm;
+		break;
+	case MOTOR_MOVE_TYPE_TO_BACKWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_BACKWARDHOME;
+		config.stepsToMove = dist * config.stepsPerMm * -1;
+		break;
+	default:
+		break;
+	}
 }
 
 void StepperMotor::MoveMotorContinuously(MotorMoveType type)
 {
-	analogWrite(config.pwmPin, (config.stepSize % 255));
+	switch(type)
+	{
+	case MOTOR_MOVE_TYPE_TO_FORWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_FORWARDHOME;
+		break;
+	case MOTOR_MOVE_TYPE_TO_BACKWARDHOME:
+		config.dirToMove = MOTOR_MOVE_TYPE_TO_BACKWARDHOME;
+		break;
+	default:
+		break;
+	}
+	config.stepsToMove = ~0;
+//	analogWrite(config.pwmPin, config.stepSize);
 }
 
 void StepperMotor::StopMotor()
@@ -152,6 +209,15 @@ bool BaseMotor::GetMotorConfig(MotorConfig* setting)
 
 void DcMotor::MoveMotorContinuously(MotorMoveType type)
 {
+	switch(type)
+	{
+	case MOTOR_MOVE_TYPE_CLOCKWISE:
+		break;
+	case MOTOR_MOVE_TYPE_ANTICLOCKWISE:
+		break;
+	default:
+		break;
+	}
 	analogWrite(config.pwmPin, (config.stepSize % 255));
 }
 
