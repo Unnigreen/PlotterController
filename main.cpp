@@ -15,7 +15,6 @@ void setup()
 {
 	TID taskId;
 
-	Serial.begin(115200);
 	SchedulerNs::Scheduler::Init();
 
 	taskId = SchedulerNs::Scheduler::CreateTask(1, TASK_INPUT_CONDITIONING_TICK,InputConditioningLogic::InputConditioning::TaskInit,InputConditioningLogic::InputConditioning::TaskRun);
