@@ -8,6 +8,7 @@
 #ifndef TYPEDEF_HPP_
 #define TYPEDEF_HPP_
 
+typedef bool BIT;
 typedef unsigned char UBYTE;
 typedef unsigned short int USHORT;
 typedef unsigned long int ULONG;
